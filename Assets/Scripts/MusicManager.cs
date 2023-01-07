@@ -25,6 +25,7 @@ public class MusicManager : MonoBehaviour
 
     public static int lastBeat=0;
     public static string lastMarkString=null;
+    public static float lastTempo=0f;
 
     public delegate void BeatEventDelegate();
     public static event BeatEventDelegate beatUpdated;
@@ -32,10 +33,16 @@ public class MusicManager : MonoBehaviour
     public delegate void MarkerListenerDelegate();
     public static event MarkerListenerDelegate markerUpdated;
 
+    public delegate void TempoListenerDelegate();
+    public static event TempoListenerDelegate tempoUpdated;
+
+
     public class TimelineInfo
     {
         public int currentBeat = 0;
         public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
+        public float currentTempo =0f;
+        public int currentPosition = 0;
     }
 
     private void Awake()
@@ -63,7 +70,20 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
-        if(lastMarkString != timelineInfo.lastMarker)
+        Debug.Log(timelineInfo.currentPosition);
+
+
+        if (lastTempo != timelineInfo.currentTempo)
+        {
+            lastTempo = timelineInfo.currentTempo;
+
+            if (tempoUpdated != null)
+            {
+                tempoUpdated();
+            }
+        }
+
+        if (lastMarkString != timelineInfo.lastMarker)
         {
             lastMarkString = timelineInfo.lastMarker;
 
@@ -122,6 +142,8 @@ public class MusicManager : MonoBehaviour
                     {
                         var parameter = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
                         timelineInfo.currentBeat = parameter.beat;
+                        timelineInfo.currentTempo = parameter.tempo;
+                        timelineInfo.currentPosition = parameter.position;
                     }
                     break;
 
@@ -131,6 +153,7 @@ public class MusicManager : MonoBehaviour
                         timelineInfo.lastMarker = parameter.name;
                     }
                     break;
+
             }
         }
         return FMOD.RESULT.OK;
