@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ObjectType { Guy, Cow, Car };
+
 public class ObjectController : MonoBehaviour
 {
     public Sprite idle1;
     public Sprite idle2;
+
+    public ObjectType objectType;
 
     SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
@@ -19,13 +23,13 @@ public class ObjectController : MonoBehaviour
     {
         Debug.Log("ChangeSprite"+ GetComponent<SpriteRenderer>().sprite);
 
-        if (GetComponent<SpriteRenderer>().sprite == idle1)
+        if (spriteRenderer.sprite == idle1)
         {
-            GetComponent<SpriteRenderer>().sprite = idle2;
+            spriteRenderer.sprite = idle2;
             Debug.Log("idle2");
-        }else if (GetComponent<SpriteRenderer>().sprite == idle2)
+        }else if (spriteRenderer.sprite == idle2)
         {
-            GetComponent<SpriteRenderer>().sprite = idle1;
+            spriteRenderer.sprite = idle1;
             Debug.Log("idle1");
         }
             
