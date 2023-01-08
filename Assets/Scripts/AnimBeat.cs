@@ -1,32 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimBeat : MonoBehaviour
 {
     public Sprite idle1;
     public Sprite idle2;
 
-    SpriteRenderer spriteRenderer;
+    Image image;
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        image = GetComponent<Image>();
         MusicManager.beatUpdated += ChangeSprite;
     }
 
     void ChangeSprite()
     {
-        Debug.Log("ChangeSprite" + GetComponent<SpriteRenderer>().sprite);
 
-        if (spriteRenderer.sprite == idle1)
+        if (image.sprite == idle1)
         {
-            spriteRenderer.sprite = idle2;
+            image.sprite = idle2;
             Debug.Log("idle2");
         }
-        else if (spriteRenderer.sprite == idle2)
+        else if (image.sprite == idle2)
         {
-            spriteRenderer.sprite = idle1;
+            image.sprite = idle1;
             Debug.Log("idle1");
         }
     }

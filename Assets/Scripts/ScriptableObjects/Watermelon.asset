@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eea92c7a5fe5b144cb5193c51341f36b, type: 3}
-  m_Name: Car
+  m_Name: Watermelon
   m_EditorClassIdentifier: 
-  objectType: 2
-  icon: {fileID: 21300000, guid: 2fe280f16dd11944e994b0d88c24fdf8, type: 3}
+  objectType: 3
+  icon: {fileID: 21300000, guid: 6994f69bfa1e90641a24cb4c00005cff, type: 3}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectType { Guy, Cow, Car };
+public enum ObjectType { Guy, Cow, Car, Watermelon, Tree };
 
 public class ObjectController : MonoBehaviour
 {

@@ -8,7 +8,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    int score;
+    public static int score;
     public int maxLife = 3;
     int currentLife;
     public static ObjectType WhiteObject;
@@ -44,8 +44,7 @@ public class GameManager : MonoBehaviour
         }
         while (BanObject == WhiteObject);
 
-        uiManager.ChangeGoodIcon(pickObjects.Find((x) => x.objectType == WhiteObject).icon);
-        uiManager.ChangeBadIcon(pickObjects.Find((x) => x.objectType == BanObject).icon);
+        uiManager.ChangeBanWhiteIcon(pickObjects.Find((x) => x.objectType == WhiteObject).icon, pickObjects.Find((x) => x.objectType == BanObject).icon);
       
     }
 
@@ -65,11 +64,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if(currentLife==0)
-        {
-            Dead();
-        }
-
+        
         if(Input.GetKeyDown(KeyCode.A))
         {
             TakeDamage();

@@ -22,14 +22,10 @@ public class UIManager : MonoBehaviour
         instance = this;
     }
 
-    public void ChangeGoodIcon(Sprite sprite)
+    public void ChangeBanWhiteIcon(Sprite goodSprite,Sprite badSprite)
     {
-        whiteUI.sprite = sprite;
-    }
-
-    public void ChangeBadIcon(Sprite sprite)
-    {
-        banUI.sprite = sprite;
+        whiteUI.sprite = goodSprite;
+        banUI.sprite = badSprite;
     }
 
     public void GameOver()
@@ -50,6 +46,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ScoreTxt.text = GameManager.score.ToString();
     }
 }

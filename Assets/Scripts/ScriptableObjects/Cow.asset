@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Cow
   m_EditorClassIdentifier: 
   objectType: 1
-  icon: {fileID: 295497925, guid: d508527abcb7fe94b92c239e4b1d52c2, type: 3}
+  icon: {fileID: 21300000, guid: d04a65380d4eb6448ac5f627b0533b15, type: 3}

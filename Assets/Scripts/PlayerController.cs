@@ -8,23 +8,57 @@ public class PlayerController : MonoBehaviour
     public delegate void HurtDelegate();
     public static event HurtDelegate hurtEvent;
 
-    // Start is called before the first frame update
+    ObjectController objectUnder;
+
+    Animator playerAnimator;
+
     void Start()
     {
+        playerAnimator=GetComponentInChildren<Animator>();
         hurtEvent();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            playerAnimator.SetTrigger("Down");
+
+            if(objectUnder != null)
+            {
+                if (objectUnder.objectType == GameManager.BanObject)
+                {
+                    hurtEvent();
+                }
+                else if (objectUnder.objectType == GameManager.WhiteObject)
+                {
+                    GameManager.score += 50;
+                }
+                else
+                {
+                    GameManager.score += 10;
+                }
+                Destroy(objectUnder);
+            }
+           
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<ObjectController>().objectType==GameManager.BanObject)
+            if (other.TryGetComponent(out ObjectController objectController))
+            {
+                objectUnder = objectController;
+            }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out ObjectController objectController))
         {
-            hurtEvent();
+            if(objectController == objectUnder)
+                objectUnder = null;
         }
     }
+
 }
