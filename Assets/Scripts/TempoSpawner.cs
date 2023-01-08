@@ -29,12 +29,13 @@ public class TempoSpawner : MonoBehaviour
         //Debug.Log(MusicManager.lastMarkString);
         if (MusicManager.lastMarkString == "Marker A")
         {
-            //if (MusicManager.lastBeat == 1 || MusicManager.lastBeat == 3)
+            //if (MusicManager.lastBeat == 1)
+            if (MusicManager.lastBeat % 2 == 1)
                 Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
                     new Vector3(
-                        spawnTransform.position.x, 
+                        spawnTransform.position.x,
                         spawnTransform.position.y,
-                        spawnTransform.position.z), Quaternion.identity, earth).transform.LookAt(earth);
+                        spawnTransform.position.z), Quaternion.identity, earth); //.transform.LookAt(earth);
             //Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)], spawnTransform);
         }
         /*
