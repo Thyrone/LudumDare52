@@ -29,9 +29,10 @@ public class TempoSpawner : MonoBehaviour
         //Debug.Log(MusicManager.lastMarkString);
         if (MusicManager.lastMarkString == "Marker A")
         {
-            //if (MusicManager.lastBeat == 1)
-            if (MusicManager.lastBeat % 2 == 1)
-                Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
+            if (MusicManager.lastBeat == 1 || MusicManager.lastBeat == 4)
+            // if (MusicManager.lastBeat % 2 == 1)
+            //if (MusicManager.lastBeat % 2 == 1)
+            Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
                     new Vector3(
                         spawnTransform.position.x,
                         spawnTransform.position.y,

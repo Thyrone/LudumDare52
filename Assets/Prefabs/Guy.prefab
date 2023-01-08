@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5270038063550445643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.14, y: 0.14, z: 0.14}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idle1: {fileID: 620568593, guid: 00b34bbee276f774dbd95135b8367ef5, type: 3}
   idle2: {fileID: -1634210059, guid: 00b34bbee276f774dbd95135b8367ef5, type: 3}
+  objectType: 0
 --- !u!114 &992457264084677516
 MonoBehaviour:
   m_ObjectHideFlags: 0

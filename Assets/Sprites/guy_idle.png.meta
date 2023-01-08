@@ -120,12 +120,12 @@ TextureImporter:
       name: guy_idle_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 1
-        width: 91
-        height: 215
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 101
+        height: 227
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,12 +141,12 @@ TextureImporter:
       name: guy_idle_1
       rect:
         serializedVersion: 2
-        x: 105
-        y: 1
-        width: 93
-        height: 209
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 101
+        y: 0
+        width: 101
+        height: 227
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

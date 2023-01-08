@@ -8,6 +8,6 @@ public class earth : MonoBehaviour
     void Update()
     {
         if(MusicManager.lastMarkString == "Marker A")
-            transform.Rotate(new Vector3(0,0, 10) * ((MusicManager.lastTempo / 60) * Time.deltaTime));
+            transform.Rotate(new Vector3(-10,0, 0) * ((MusicManager.lastTempo / 60) * Time.deltaTime));
     }
 }

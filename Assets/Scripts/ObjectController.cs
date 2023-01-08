@@ -21,19 +21,21 @@ public class ObjectController : MonoBehaviour
 
     void ChangeSprite()
     {
-        Debug.Log("ChangeSprite"+ GetComponent<SpriteRenderer>().sprite);
-
-        if (spriteRenderer.sprite == idle1)
+        if(TryGetComponent(out SpriteRenderer spriteRenderer))
         {
-            spriteRenderer.sprite = idle2;
-            Debug.Log("idle2");
-        }else if (spriteRenderer.sprite == idle2)
-        {
-            spriteRenderer.sprite = idle1;
-            Debug.Log("idle1");
+            if (spriteRenderer.sprite == idle1)
+            {
+                spriteRenderer.sprite = idle2;
+                Debug.Log("idle2");
+            }
+            else if (spriteRenderer.sprite == idle2)
+            {
+                spriteRenderer.sprite = idle1;
+                Debug.Log("idle1");
+            }
         }
-            
 
+       
 
     }
 

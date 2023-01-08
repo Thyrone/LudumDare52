@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerAnimator=GetComponentInChildren<Animator>();
-        hurtEvent();
+        
     }
 
     void Update()
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
                 {
                     GameManager.score += 10;
                 }
-                Destroy(objectUnder);
+                Destroy(objectUnder.gameObject);
             }
            
         }
