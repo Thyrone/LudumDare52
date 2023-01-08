@@ -39,6 +39,11 @@ public class ObjectController : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        MusicManager.beatUpdated -= ChangeSprite;
+    }
+
     void Update()
     {
         //Debug.Log(Time.deltaTime);
