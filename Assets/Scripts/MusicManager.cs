@@ -70,7 +70,7 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(timelineInfo.currentPosition);
+       // Debug.Log(timelineInfo.currentPosition);
 
 
         if (lastTempo != timelineInfo.currentTempo)
