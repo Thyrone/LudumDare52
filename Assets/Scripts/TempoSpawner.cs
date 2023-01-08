@@ -5,6 +5,7 @@ using UnityEngine;
 public class TempoSpawner : MonoBehaviour
 {
     public Transform spawnTransform;
+    public Transform earth;
     public List<GameObject> ObjectsToSpawn = new List<GameObject>();
 
     void Start()
@@ -21,15 +22,20 @@ public class TempoSpawner : MonoBehaviour
 
     void CreateEnemyTmp(float beatInterval)
     {
-        Debug.Log("beatInterval"+beatInterval);
+        //Debug.Log("beatInterval"+beatInterval);
     }
     void CreateEnemy()
     {
         //Debug.Log(MusicManager.lastMarkString);
         if (MusicManager.lastMarkString == "Marker A")
         {
-            if (MusicManager.lastBeat == 1 || MusicManager.lastBeat == 3)
-                Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)], spawnTransform);
+            //if (MusicManager.lastBeat == 1 || MusicManager.lastBeat == 3)
+                Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
+                    new Vector3(
+                        spawnTransform.position.x, 
+                        spawnTransform.position.y,
+                        spawnTransform.position.z), Quaternion.identity, earth).transform.LookAt(earth);
+            //Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)], spawnTransform);
         }
         /*
         Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
