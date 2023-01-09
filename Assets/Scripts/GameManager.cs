@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     UIManager uiManager;
 
+    public static int highscore = 0;
+
 
     public static GameManager instance;
     private void Awake()
@@ -33,6 +35,15 @@ public class GameManager : MonoBehaviour
         uiManager = UIManager.instance;
         MusicManager.markerUpdated += ChangeRules;
         PlayerController.hurtEvent += TakeDamage;
+        PlayerController.scoreEvent += ScoreUpdate;
+        if (PlayerPrefs.HasKey("Highscore"))
+        {
+            PlayerPrefs.GetInt("Highscore", highscore);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Highscore", 0);
+        }
     }
 
     void ChangeRules()
@@ -47,15 +58,21 @@ public class GameManager : MonoBehaviour
             }
             while (BanObject == WhiteObject);
 
-            uiManager.ChangeBanWhiteIcon(pickObjects.Find((x) => x.objectType == WhiteObject).icon, pickObjects.Find((x) => x.objectType == BanObject).icon);
+            UIManager.instance.ChangeBanWhiteIcon(pickObjects.Find((x) => x.objectType == WhiteObject).icon, pickObjects.Find((x) => x.objectType == BanObject).icon);
         }
-       
-      
-    }
+
+        if (MusicManager.lastMarkString.Contains("End"))
+        {
+            Dead();
+        }
+
+
+        }
     private void OnDestroy()
     {
         MusicManager.beatUpdated -= ChangeRules;
         PlayerController.hurtEvent -= TakeDamage;
+        PlayerController.scoreEvent -= ScoreUpdate;
     }
     void Dead()
     {
@@ -70,6 +87,17 @@ public class GameManager : MonoBehaviour
         {
             Dead();
         }
+    }
+
+    void ScoreUpdate(int scoreToUpdate)
+    {
+        score += scoreToUpdate;
+        if (score > highscore)
+        {
+            highscore = score;
+            PlayerPrefs.SetInt("Highscore", score);
+        }
+        uiManager.ScoreUIUpdate();
     }
     void Update()
     {

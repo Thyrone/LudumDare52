@@ -21,6 +21,15 @@ public class MusicManager : MonoBehaviour
     public GCHandle timelineHandle;
 
     private FMOD.Studio.EventInstance musicInstance;
+    FMOD.Studio.EventInstance carInstance;
+    FMOD.Studio.EventInstance guyInstance;
+    FMOD.Studio.EventInstance watermelonInstance;
+    FMOD.Studio.EventInstance cowInstance;
+    FMOD.Studio.EventInstance treeInstance; 
+    FMOD.Studio.EventInstance errorInstance; 
+    FMOD.Studio.EventInstance buttonInstance; 
+    FMOD.Studio.EventInstance particleInstance; 
+
     private FMOD.Studio.EVENT_CALLBACK beatCallback;
 
     public static int lastBeat=0;
@@ -48,12 +57,25 @@ public class MusicManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
+        /*
         if(!music.IsNull)
         {
             musicInstance = RuntimeManager.CreateInstance(music);
             musicInstance.start();
-        }
+        }*/
+    }
+    public void PlayMainMusic()
+    {
+        Debug.Log("PlayMusic");
+            
+            musicInstance = RuntimeManager.CreateInstance(music);
+            musicInstance.start();
+            timelineInfo = new TimelineInfo();
+            beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
+            timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
+            musicInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
+            musicInstance.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+        
     }
 
     void Start()
@@ -65,44 +87,57 @@ public class MusicManager : MonoBehaviour
             timelineHandle = GCHandle.Alloc(timelineInfo,GCHandleType.Pinned);
             musicInstance.setUserData(GCHandle.ToIntPtr(timelineHandle));
             musicInstance.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
+            cowInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Cow");
+            carInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Car");
+            watermelonInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Watermelon");
+            treeInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Tree");
+            guyInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Guy");
+
+            errorInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Error");
+            buttonInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Button");
+            particleInstance= FMODUnity.RuntimeManager.CreateInstance("event:/SFX/Particle");
         }
+        
     }
 
     private void Update()
     {
        // Debug.Log(timelineInfo.currentPosition);
 
-
-        if (lastTempo != timelineInfo.currentTempo)
+        if(!music.IsNull)
         {
-            lastTempo = timelineInfo.currentTempo;
-
-            if (tempoUpdated != null)
+            if (lastTempo != timelineInfo.currentTempo)
             {
-                tempoUpdated();
+                lastTempo = timelineInfo.currentTempo;
+
+                if (tempoUpdated != null)
+                {
+                    tempoUpdated();
+                }
+            }
+
+            if (lastMarkString != timelineInfo.lastMarker)
+            {
+                lastMarkString = timelineInfo.lastMarker;
+
+                if (markerUpdated != null)
+                {
+                    markerUpdated();
+                }
+            }
+
+            if (lastBeat != timelineInfo.currentBeat)
+
+            {
+                lastBeat = timelineInfo.currentBeat;
+
+                if (beatUpdated != null)
+                {
+                    beatUpdated();
+                }
             }
         }
-
-        if (lastMarkString != timelineInfo.lastMarker)
-        {
-            lastMarkString = timelineInfo.lastMarker;
-
-            if(markerUpdated!=null)
-            {
-                markerUpdated();
-            }
-        }
-
-        if(lastBeat!=timelineInfo.currentBeat)
-
-        {
-            lastBeat = timelineInfo.currentBeat;
-
-            if(beatUpdated!=null)
-            {
-                beatUpdated();
-            }
-        }
+       
     }
 
     private void OnDestroy()
@@ -158,4 +193,51 @@ public class MusicManager : MonoBehaviour
         }
         return FMOD.RESULT.OK;
     }
+
+
+    #region SFX
+
+    public void PlayCar()
+    {
+        carInstance.start();
+    }
+
+    public void PlayCow()
+    {
+        cowInstance.start();
+    }
+
+    public void PlayTree()
+    {
+        treeInstance.start();
+    }
+
+    public void PlayGuy()
+    {
+        guyInstance.start();
+    }
+
+    public void PlayWatermelon()
+    {
+        watermelonInstance.start();
+    }
+
+    public void PlayError()
+    {
+        errorInstance.start();
+    }
+
+    public void PlayButton()
+    {
+        buttonInstance.start();
+    }
+
+    public void PlayParticleSnd()
+    {
+        particleInstance.start();
+    }
+
+
+
+    #endregion
 }

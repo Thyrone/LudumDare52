@@ -9,9 +9,22 @@ public class SceneChanger : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        SceneManager.sceneLoaded += SceneLoadAction;
     }
    public void ChangeToMain()
     {
         SceneManager.LoadScene("Main");
     }
+    
+    public void SceneLoadAction(Scene scene,LoadSceneMode loadSceneMode)
+    {
+        Debug.Log("scene load=" + scene.name);
+
+        if(scene.name=="Main")
+        {
+            MusicManager.instance.PlayMainMusic();
+        }
+        
+    }
+    
 }

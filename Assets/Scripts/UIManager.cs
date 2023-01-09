@@ -15,7 +15,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject GameOverUI;
     public GameObject ChangeRulesUI;
-    public TMP_Text ScoreTxt;
+    public TMP_Text[] ScoreTxt;
+    public TMP_Text HighScoreTxt;
 
     public static UIManager instance;
     private void Awake()
@@ -40,9 +41,22 @@ public class UIManager : MonoBehaviour
     public void GameOver()
     {
         StartCoroutine(GameOverUITime());
-        
     }
 
+    public void ScoreUIUpdate()
+    {
+        foreach(TMP_Text tmp_text in ScoreTxt)
+        {
+            tmp_text.text = GameManager.score.ToString();
+
+            if (tmp_text.gameObject.TryGetComponent(out Animator animator))
+            {
+                Debug.Log(animator.gameObject.name);
+                animator.SetTrigger("score");
+            }
+        }
+        
+    }
     public void LoseHeart(int heartToDisapear)
     {
         heart[heartToDisapear-1].gameObject.SetActive(false);
@@ -53,15 +67,12 @@ public class UIManager : MonoBehaviour
         GameOverUI.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        ScoreTxt.text = GameManager.score.ToString();
-    }
 
     IEnumerator GameOverUITime()
     {
         yield return new WaitForSeconds(1.2f);
+        HighScoreTxt.text = GameManager.highscore.ToString();
         GameOverUI.SetActive(true);
+        
     }
 }

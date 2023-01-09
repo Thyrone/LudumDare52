@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public delegate void HurtDelegate();
     public static event HurtDelegate hurtEvent;
 
+    public delegate void ScoreDelegate(int addScore);
+    public static event ScoreDelegate scoreEvent;
+
     ObjectController objectUnder;
 
     Animator playerAnimator;
@@ -32,18 +35,49 @@ public class PlayerController : MonoBehaviour
                     particleSystem.startColor = Color.red;
                     particleSystem.Play();
                     hurtEvent();
+                    MusicManager.instance.PlayError();
                 }
                 else if (objectUnder.objectType == GameManager.WhiteObject)
                 {
-                    GameManager.score += 50;
+                   // GameManager.score += 50;
+                    scoreEvent(50);
                     particleSystem.startColor = Color.green;
                     particleSystem.Play();
+                    MusicManager.instance.PlayParticleSnd();
                 }
                 else
                 {
-                    GameManager.score += 10;
+                    MusicManager.instance.PlayParticleSnd();
+                    scoreEvent(10);
+                   // GameManager.score += 10;
                     particleSystem.startColor = Color.white;
                     particleSystem.Play();
+
+                    switch(objectUnder.objectType)
+                    {
+                        case ObjectType.Car:
+                            MusicManager.instance.PlayCar();
+                            break;
+
+                        case ObjectType.Cow:
+                            MusicManager.instance.PlayCow();
+                            break;
+
+                        case ObjectType.Guy:
+                            MusicManager.instance.PlayGuy();
+                            break;
+
+                        case ObjectType.Tree:
+                            MusicManager.instance.PlayTree();
+                            break;
+
+                        case ObjectType.Watermelon:
+                            MusicManager.instance.PlayWatermelon();
+                            break;
+
+                    }
+                        
+
                 }
                 Destroy(objectUnder.gameObject);
             }
