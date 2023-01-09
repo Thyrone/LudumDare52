@@ -8,16 +8,16 @@ public class TempoSpawner : MonoBehaviour
     public Transform earth;
     public List<GameObject> ObjectsToSpawn = new List<GameObject>();
 
+    bool gameStarted = false;
     void Start()
     {
         MusicManager.beatUpdated += CreateEnemy;
         BeatTracker.tempoChanged += CreateEnemyTmp;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        
+        MusicManager.beatUpdated -= CreateEnemy;
+        BeatTracker.tempoChanged -= CreateEnemyTmp;
     }
 
     void CreateEnemyTmp(float beatInterval)
@@ -26,19 +26,26 @@ public class TempoSpawner : MonoBehaviour
     }
     void CreateEnemy()
     {
+        if (MusicManager.lastMarkString == "Start")
+            gameStarted = true;
         //Debug.Log(MusicManager.lastMarkString);
-        if (MusicManager.lastMarkString == "Marker A")
+        if (gameStarted)
         {
             if (MusicManager.lastBeat == 1 || MusicManager.lastBeat == 4)
-            // if (MusicManager.lastBeat % 2 == 1)
-            //if (MusicManager.lastBeat % 2 == 1)
-            Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
-                    new Vector3(
-                        spawnTransform.position.x,
-                        spawnTransform.position.y,
-                        spawnTransform.position.z), Quaternion.identity, earth); //.transform.LookAt(earth);
-            //Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)], spawnTransform);
+            {
+                Debug.Log("yo");
+                Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
+        new Vector3(
+            spawnTransform.position.x,
+            spawnTransform.position.y,
+            spawnTransform.position.z), Quaternion.identity, earth);
+            }
         }
+        // if (MusicManager.lastBeat % 2 == 1)
+        //if (MusicManager.lastBeat % 2 == 1)
+        //.transform.LookAt(earth);
+        //Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)], spawnTransform);
+
         /*
         Instantiate(ObjectsToSpawn[Random.Range(0, ObjectsToSpawn.Count)],
            new Vector3(

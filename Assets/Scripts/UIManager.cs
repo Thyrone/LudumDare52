@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Image whiteUI;
-    public Image banUI;
+    public Image[] whiteUI;
+    public Image[] banUI;
     public Image[] emptyHeart;
     public Image[] heart;
 
 
 
     public GameObject GameOverUI;
+    public GameObject ChangeRulesUI;
     public TMP_Text ScoreTxt;
 
     public static UIManager instance;
@@ -24,13 +25,22 @@ public class UIManager : MonoBehaviour
 
     public void ChangeBanWhiteIcon(Sprite goodSprite,Sprite badSprite)
     {
-        whiteUI.sprite = goodSprite;
-        banUI.sprite = badSprite;
+        foreach(Image image in whiteUI)
+        {
+            image.sprite = goodSprite;
+        }
+        foreach (Image image in banUI)
+        {
+            image.sprite = badSprite;
+        }
+        ChangeRulesUI.GetComponentInChildren<Animator>().Play("BubbleAnim");
+        ChangeRulesUI.SetActive(true);
     }
 
     public void GameOver()
     {
-        GameOverUI.SetActive(true);
+        StartCoroutine(GameOverUITime());
+        
     }
 
     public void LoseHeart(int heartToDisapear)
@@ -47,5 +57,11 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         ScoreTxt.text = GameManager.score.ToString();
+    }
+
+    IEnumerator GameOverUITime()
+    {
+        yield return new WaitForSeconds(1.2f);
+        GameOverUI.SetActive(true);
     }
 }

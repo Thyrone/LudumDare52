@@ -28,15 +28,15 @@ public class NoteObject : MonoBehaviour {
                 if(Mathf.Abs(transform.position.y) > 0.25)
                 {
                     Debug.Log("Hit");
-                    GameManager.instance.NormalHit();
+                    GameManagerHugo.instance.NormalHit();
                 } else if(Mathf.Abs(transform.position.y) > 0.05f)
                 {
                     Debug.Log("Good");
-                    GameManager.instance.GoodHit();  
+                    GameManagerHugo.instance.GoodHit();  
                 } else
                 {
                     Debug.Log("Perfect");
-                    GameManager.instance.PerfectHit();
+                    GameManagerHugo.instance.PerfectHit();
                 }
             }
         }
@@ -55,7 +55,7 @@ public class NoteObject : MonoBehaviour {
         {
             canBePressed = false;
 
-            GameManager.instance.NoteMissed();
+            GameManagerHugo.instance.NoteMissed();
         } 
     }
 }

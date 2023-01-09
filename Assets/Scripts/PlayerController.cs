@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     Animator playerAnimator;
 
+    public ParticleSystem particleSystem;
     void Start()
     {
         playerAnimator=GetComponentInChildren<Animator>();
@@ -28,15 +29,21 @@ public class PlayerController : MonoBehaviour
             {
                 if (objectUnder.objectType == GameManager.BanObject)
                 {
+                    particleSystem.startColor = Color.red;
+                    particleSystem.Play();
                     hurtEvent();
                 }
                 else if (objectUnder.objectType == GameManager.WhiteObject)
                 {
                     GameManager.score += 50;
+                    particleSystem.startColor = Color.green;
+                    particleSystem.Play();
                 }
                 else
                 {
                     GameManager.score += 10;
+                    particleSystem.startColor = Color.white;
+                    particleSystem.Play();
                 }
                 Destroy(objectUnder.gameObject);
             }

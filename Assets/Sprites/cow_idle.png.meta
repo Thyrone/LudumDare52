@@ -120,12 +120,12 @@ TextureImporter:
       name: cow_idle_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 1
-        width: 238
-        height: 190
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 255
+        height: 202
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -142,11 +142,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 255
-        y: 1
-        width: 247
-        height: 177
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 0
+        width: 255
+        height: 202
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

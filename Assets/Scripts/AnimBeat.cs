@@ -30,4 +30,8 @@ public class AnimBeat : MonoBehaviour
             Debug.Log("idle1");
         }
     }
+    private void OnDestroy()
+    {
+        MusicManager.beatUpdated -= ChangeSprite;
+    }
 }

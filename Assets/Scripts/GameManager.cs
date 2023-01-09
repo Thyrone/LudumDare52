@@ -37,18 +37,27 @@ public class GameManager : MonoBehaviour
 
     void ChangeRules()
     {
-        WhiteObject= (ObjectType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ObjectType)).Length);
-        do
+        if(MusicManager.lastMarkString.Contains("ChangeRules"))
         {
-            BanObject = (ObjectType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ObjectType)).Length);
-        }
-        while (BanObject == WhiteObject);
+            Debug.Log("ChangeRules");
+            WhiteObject = (ObjectType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ObjectType)).Length);
+            do
+            {
+                BanObject = (ObjectType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ObjectType)).Length);
+            }
+            while (BanObject == WhiteObject);
 
-        uiManager.ChangeBanWhiteIcon(pickObjects.Find((x) => x.objectType == WhiteObject).icon, pickObjects.Find((x) => x.objectType == BanObject).icon);
+            uiManager.ChangeBanWhiteIcon(pickObjects.Find((x) => x.objectType == WhiteObject).icon, pickObjects.Find((x) => x.objectType == BanObject).icon);
+        }
+       
       
     }
-
-   void Dead()
+    private void OnDestroy()
+    {
+        MusicManager.beatUpdated -= ChangeRules;
+        PlayerController.hurtEvent -= TakeDamage;
+    }
+    void Dead()
     {
         uiManager.GameOver();
     }
